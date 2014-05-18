@@ -1,0 +1,85 @@
+[user]
+  name = Thibaut
+  email = thibaut@me.com
+
+[alias]
+  # View abbreviated SHA, description, and history graph of the latest 20 commits
+  l = log --pretty=oneline -n 20 --graph --abbrev-commit
+  # View the current working tree status using the short format
+  s = status -s
+  # Show the diff between the latest commit and the current state
+  d = !"git diff-index --quiet HEAD -- || clear; git --no-pager diff --patch-with-stat"
+  # `git di $number` shows the diff between the state `$number` revisions ago and the current state
+  di = !"d() { git diff --patch-with-stat HEAD~$1; }; git diff-index --quiet HEAD -- || clear; d"
+  # Switch to a branch, creating it if necessary
+  go = "!f() { git checkout -b \"$1\" 2> /dev/null || git checkout \"$1\"; }; f"
+  # Show verbose output about tags, branches or remotes
+  tags = tag -l
+  branches = branch -a
+  remotes = remote -v
+  # Interactive rebase with the given number of latest commits
+  reb = "!r() { git rebase -i HEAD~$1; }; r"
+  # Remove branches that have already been merged with master
+  dm = "!git branch --merged | grep -v '\\*' | xargs -n 1 git branch -d"
+  ci = commit
+  co = checkout
+  st = status
+  br = branch
+  re = rebase
+  tree = log --oneline --decorate --all --graph
+  amend = commit --amend --reuse-message=HEAD
+  wip = "commit -a -m \"wip\""
+  undo = reset HEAD~
+  p = push origin HEAD
+  fp = push origin HEAD -f
+  get = "!git pull origin \"$(git rev-parse --abbrev-ref HEAD)\""
+
+[apply]
+  # Detect whitespace errors when applying a patch
+  whitespace = fix
+
+[core]
+  editor = vim
+  # Use custom `.gitignore`
+  excludesfile = ~/.gitignore
+
+[color]
+  # Use colors in Git commands that are capable of colored output when
+  # outputting to the terminal. (This is the default setting in Git ≥ 1.8.4.)
+  ui = auto
+[color "branch"]
+  current = yellow reverse
+  local = yellow
+  remote = green
+[color "diff"]
+  meta = yellow bold
+  frag = magenta bold
+  old = red bold
+  new = green bold
+[color "status"]
+  added = yellow
+  changed = green
+  untracked = cyan
+[merge]
+  # Include summaries of merged commits in newly created merge commit messages
+  log = true
+
+# URL shorthands
+[url "git@github.com:"]
+  insteadOf = "gh:"
+  pushInsteadOf = "github:"
+  pushInsteadOf = "git://github.com/"
+[url "git://github.com/"]
+  insteadOf = "github:"
+[url "git@gist.github.com:"]
+  insteadOf = "gst:"
+  pushInsteadOf = "gist:"
+  pushInsteadOf = "git://gist.github.com/"
+[url "git://gist.github.com/"]
+  insteadOf = "gist:"
+
+[push]
+  default = current
+
+[pull]
+  rebase = true
