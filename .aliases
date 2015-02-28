@@ -9,6 +9,7 @@ alias dl="cd ~/Downloads"
 alias be="bundle exec"
 alias ber="bundle exec rails"
 alias bes="bundle exec spring"
+alias best="bundle exec spring testunit"
 
 # Detect which `ls` flavor is in use
 if ls --color > /dev/null 2>&1; then # GNU `ls`
